@@ -6,11 +6,14 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
+app.engine("ejs", ejsMate);
 
 const dbUrl = process.env.MONGO_URL;
 async function main() {
