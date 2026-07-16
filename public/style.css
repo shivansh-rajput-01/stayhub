@@ -1,0 +1,120 @@
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.fa-compass{
+    color: #0D9488;
+    font-size: 1.7rem;
+}
+
+.nav-link{
+    color: #222222;
+}
+
+.nav-link:hover{
+    color: black;
+    font-weight: 500 !important;
+}
+
+.navbar{
+    height: 80px;
+    background-color: white !important;
+}
+
+footer{
+    background-color: #ebebeb;
+    padding: 2px 0px;
+    flex: 1;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.fa-brands{
+    font-size: 1.2rem;
+    margin-right: 1.2rem !important;
+}
+
+span{
+    margin-right: 1.2rem;
+}
+
+span a{
+    text-decoration: none;
+    color: #222222;
+}
+
+.card-body{
+    padding: 5px 0px;
+}
+
+.card-img-top{
+    height: 18rem;
+    object-fit: cover;
+}
+
+.card{
+    margin-bottom: 1.5rem !important;
+}
+
+.card a{
+    text-decoration: none !important;
+    color: #222222;
+}
+
+.card-text{
+    text-decoration: none;
+}
+
+.card-img-overlay{
+    opacity: 0;
+}
+
+.card-img-top{
+    border-radius: 4px;
+}
+
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+
+/* add page */
+
+.btn-add, .btn-edit{
+    margin-top: 0.5rem;
+    color: white !important;
+    background-color: #0D9488;
+    border: none;
+}
+
+.btn-add:hover, .btn-edit:hover{
+    background-color: #0D9488;
+}
+
+div{
+    margin-bottom: 5px;
+}
+
+.show-card{
+    margin-top: 1rem !important;
+}
+
+.i-flex{
+    display: inline-flex;
+}
+
+.btn-delete{
+    color: white;
+    background-color: #da1249;
+}
+
+.btn-delete:hover{
+    background-color: #da1249;
+}
