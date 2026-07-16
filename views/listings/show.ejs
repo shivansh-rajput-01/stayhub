@@ -1,25 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Listing</title>
-</head>
+<% layout("./layouts/boilerplate") -%>
 <body>
-    <div>
-        <h1><%= listing.title %></h1>
-        <h3><i><%= listing.description %></i></h3>
-        <hr>
-        <img src=<%= listing.image %> alt="destination photos" height="500">
-        <hr>
-        <p>Price: ₹ <%= listing.price.toLocaleString("en-IN") %></p>
-        <p>Location: <%= listing.location %></p>
-        <p>Country: <%= listing.country %></p>
+    <div class="container">
+        <div class="card border-0 show-card offset-4" style="width: 32rem;">
+            <img src="<%= listing.image %>" class="card-img-top" alt="property photo">
+            <div class="card-body">
+                <h5 class="card-title"><%= listing.title %></h5>
+                <p class="card-text"><%= listing.description %></p>
+                <p class="card-text">Price: ₹ <%= listing.price.toLocaleString("en-IN") %></p>
+                <p class="card-text">Location: <%= listing.location %></p>
+                <p class="card-text">Country: <%= listing.country %></p>
+                <form action="/listings/<%= listing._id %>/edit" class="i-flex">
+                    <button class="btn btn-edit">Edit</button>
+                </form>
+                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="i-flex">
+                    <button class="btn btn-delete">Delete</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <a href="/listings/<%= listing._id %>/edit">Edit this listing</a>
-    <br>
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-        <button>Delete</button>
-    </form>
 </body>
-</html>
