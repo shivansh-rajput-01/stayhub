@@ -118,3 +118,13 @@ div{
 .btn-delete:hover{
     background-color: #da1249;
 }
+
+.navbar-collapse{
+    background-color: white;
+}
+
+@media (max-width: 600px){
+    .card{
+        width: 100% !important;
+    }
+}
