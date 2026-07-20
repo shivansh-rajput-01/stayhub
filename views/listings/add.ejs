@@ -4,14 +4,20 @@
        <h3 class="offset-3">Add Listing</h3>
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <form action="/listings" method="POST">
+                <form action="/listings" method="POST" class="needs-validation" novalidate>
                     <div>
                         <label for="title" class="form-label">Title </label>
                         <input type="text" name="title" id="title" placeholder="Enter a catchy title" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Title cannot be empty
+                        </div>
                     </div>
                     <div>
                         <label for="description" class="form-label">Description </label>
-                        <input type="text" name="description" id="description" placeholder="Enter description" class="form-control">
+                        <input type="text" name="description" id="description" placeholder="Enter description" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Description cannot be empty
+                        </div>
                     </div>
                     <div>
                         <label for="image" class="form-label">Image URL </label>
@@ -21,17 +27,26 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="price" class="form-label">Price </label>
-                                <input type="number" name="price" id="price" placeholder="1200" class="form-control">
+                                <input type="number" name="price" id="price" placeholder="1200" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Price cannot be empty
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <label for="location" class="form-label">Location </label>
-                                <input type="text" name="location" id="location" placeholder="Mumbai, Maharashtra" class="form-control">
+                                <input type="text" name="location" id="location" placeholder="Mumbai, Maharashtra" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Location cannot be empty
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div>
                         <label for="country" class="form-label">Country </label>
-                        <input type="text" name="country" id="country" placeholder="India" class="form-control">
+                        <input type="text" name="country" id="country" placeholder="India" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Country cannot be empty
+                        </div>
                     </div>
                     <button class="btn btn-add">Add Listing</button>
                 </form>
