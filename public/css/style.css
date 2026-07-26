@@ -127,4 +127,26 @@ div{
     .card{
         width: 100% !important;
     }
+
+    .reviews{
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px){
+    .listing-card{
+        width: 18rem !important;
+    }
+}
+
+@media (max-width: 768px){
+    .listing-card{
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1400px){
+    .listing-card{
+        width: 18rem !important;
+    }
 }
