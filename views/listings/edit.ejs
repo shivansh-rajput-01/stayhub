@@ -4,7 +4,7 @@
        <h3 class="offset-3">Edit Listing</h3>
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <form action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" method="POST" novalidate>
+                <form action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" method="POST" enctype="multipart/form-data" novalidate>
                     <div>
                         <label for="title" class="form-label">Title </label>
                         <input type="text" name="title" id="title" value="<%=listing.title%>" class="form-control" required>
@@ -20,8 +20,12 @@
                         </div>
                     </div>
                     <div>
+                        <p>Original Image</p>
+                        <img src="<%= imgUrl %>" alt="Original image preview" class="card-img-top" style="max-height: 300px; width: 250px;">
+                    </div>
+                    <div>
                         <label for="image" class="form-label">Image </label>
-                        <input type="text" name="image" id="image" value="<%=listing.image%>" class="form-control" required>
+                        <input type="file" name="image" id="image" class="form-control">
                         <div class="invalid-feedback">
                             Image cannot be empty
                         </div>
