@@ -14,6 +14,7 @@ main()
 
 async function init(){
     await Listing.deleteMany({});
+    sample.data = sample.data.map((el) => ({...el, owner: "6a65b3013be25dda9bb6dd0c"}));
     await Listing.insertMany(sample.data);
 }
 
