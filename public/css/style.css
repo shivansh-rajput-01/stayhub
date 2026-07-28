@@ -123,6 +123,14 @@ div{
     background-color: white;
 }
 
+.scale-down{
+    transform: scale(0.3);
+}
+
+.listing-card{
+    border: none !important;
+}
+
 @media (max-width: 600px){
     .card{
         width: 100% !important;
