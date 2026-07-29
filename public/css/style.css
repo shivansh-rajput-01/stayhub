@@ -2,6 +2,7 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .fa-compass{
@@ -24,9 +25,23 @@ body{
 }
 
 footer{
-    background-color: #ebebeb;
+    /* background-color: #ebebeb; */
     padding: 2px 0px;
+    align-items: end;
+    /* flex: 1; */
+    margin-bottom: 0px !important;
+}
+
+.grow{
+    height: 5rem;
     flex: 1;
+}
+
+.outer{
+    background-color: #ebebeb;
+    padding: 0.5rem 0rem;
+    flex-grow: 0;
+    margin-bottom: 0px;
 }
 
 .footer{
@@ -34,6 +49,7 @@ footer{
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 0px;
 }
 
 .fa-brands{
@@ -57,6 +73,10 @@ span a{
 .card-img-top{
     height: 18rem;
     object-fit: cover;
+}
+
+.show-card-img{
+    height: 24rem !important;
 }
 
 .card{
@@ -131,7 +151,130 @@ div{
     border: none !important;
 }
 
-@media (max-width: 600px){
+#map{
+    height: 480px;
+}
+
+.leaflet-control-attribution{
+    display: none !important;
+}
+
+.btn-search{
+    border: 0.5px solid #0D9488;
+    border-radius: 25px;
+    color: black;
+    padding: 0.5rem 2rem;
+}
+
+.btn-search:hover{
+    background-color: #0D9488;
+    color: white;
+}
+
+.fa-magnifying-glass{
+    display: inline;
+    margin-right: 0.3rem;
+}
+
+.search-input{
+    text-align: center;
+    padding: 0.5rem 3rem;
+    border-radius: 25px;
+}
+
+#filters{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.filter div{
+    display: flex;
+    justify-content: center;
+}
+
+.filter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 1rem;
+    opacity: 0.7;
+}
+
+.filter:hover{
+    opacity: 1;
+}
+
+.filter p{
+    font-size: 1rem;
+}
+
+.tax-switch{
+    display: flex;
+    align-items: center;
+}
+
+.form-switch{
+    height: 50px;
+    padding: 1rem 1rem;
+}
+
+.filter-box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.hide{
+    display: none;
+}
+
+.filter-btn{
+    background-color: white;
+    border: none;
+}
+
+.carousal-image{
+    object-fit: contain !important;
+    background-position: center;
+}
+
+.benefits{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.benefit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    color: #0D9488;
+    /* background-color: rgb(240, 240, 240); */
+    background-color: white;
+    border: 0.5px solid grey;
+    border-radius: 15px;
+    margin: 1rem 2rem 1rem 0rem;
+    padding: 1rem;
+}
+
+ol{
+    padding-left: 0px;
+    list-style-type: none;
+}
+
+ol li{
+    margin-left: 0px;
+}
+
+.mobile{
+    color: #0D9488;
+    background-color: white;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px){
     .card{
         width: 100% !important;
     }
@@ -139,11 +282,82 @@ div{
     .reviews{
         width: 100% !important;
     }
+
+    .search-form{
+        flex-direction: column;
+        gap: 1rem;
+        width: 200px;
+    }
+
+    .btn-search{
+        width: 120px;
+        border-radius: 5px;
+    }
+
+    .search-input{
+        border-radius: 5px;
+    }
+}
+
+@media (max-width: 992px){
+    #filter-input{
+        display: flex !important;
+    }
+
+    #filters{
+        display: none !important;
+    }
+
+    .benefits{
+        display: none;
+    }
+
+    .mobile{
+        display: block !important;
+        font-size: 0.8rem;
+    }
+    
+    .mobile span, .mobile i{
+        font-size: 0.8rem !important;
+    }
+}
+
+@media (min-width: 993px){
+    #filter-input{
+        display: none !important;
+    }
+    
+    #filters{
+        display: flex !important;
+    }
+
+    .benefits{
+        display: flex;
+    }
+
+    .mobile{
+        display: none;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 992px){
     .listing-card{
         width: 18rem !important;
+    }
+
+    .search-form{
+        flex-direction: column;
+        gap: 1rem;
+        width: 250px;
+    }
+
+    .btn-search{
+        width: 150px;
+        border-radius: 5px;
+    }
+
+    .search-input{
+        border-radius: 5px;
     }
 }
 
@@ -156,5 +370,17 @@ div{
 @media (min-width: 992px) and (max-width: 1400px){
     .listing-card{
         width: 18rem !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px){
+    .benefit{
+        width: 45%;
+    }
+}
+
+@media (max-width: 992px){
+    .benefit{
+        width: 100%;
     }
 }
