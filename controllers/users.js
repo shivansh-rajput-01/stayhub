@@ -1,4 +1,6 @@
 const User = require("../models/user.js");
+const Listing = require("../models/listing.js");
+const { starRatingArray } = require("../utils/starRatingArray.js");
 
 module.exports.renderSignupForm = (req, res) => {
     res.render("users/signup.ejs");
@@ -41,4 +43,27 @@ module.exports.logout = (req, res, next) => {
         req.flash("success", "Logged out successfully");
         res.redirect("/listings");
     })
+}
+
+module.exports.profile = async(req, res) => {
+  let {user} = req;
+  const listings = await Listing.find({owner: user._id}).populate("reviews");
+  let avgReview, avgNumber, maxReview;
+  let numReviews = 0;
+  let reviewSum = 0;
+  maxReview = 0;
+  for(let listing of listings){
+    if(listing.reviews){
+        numReviews += listing.reviews.length;
+        if(listing.reviews.length > maxReview){
+            maxReview = listing.reviews.length;
+        }
+        for(let review of listing.reviews){
+            reviewSum += review.rating;
+        }
+    }
+  }
+  avgNumber = numReviews / listings.length;
+  avgReview = reviewSum / numReviews;
+  res.render("users/profile.ejs", {user, listings, starRatingArray, avgNumber, avgReview, maxReview});
 }
