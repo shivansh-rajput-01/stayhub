@@ -14,11 +14,13 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const Listing = require("./models/listing.js");
 
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const usersRouter = require("./routes/user.js");
 const { reviewSchema } = require('./schema.js');
+const { starRatingArray } = require('./utils/starRatingArray.js');
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -51,9 +53,6 @@ const sessionOptions = {
     }
 };
 
-app.get("/", (req, res) => {
-    res.send("project started");
-});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -71,6 +70,11 @@ app.use((req, res, next) => {
     res.locals.currUser = req.user;
     next();
 });
+
+app.get("/", wrapAsync(async(req, res) => {
+    const listings = await Listing.find().sort({avgRating: -1}).limit(5);
+    res.render("Home.ejs", {listings, starRatingArray});
+}));
 
 app.use("/", usersRouter);
 app.use("/listings", listingsRouter);
