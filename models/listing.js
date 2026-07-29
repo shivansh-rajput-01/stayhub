@@ -26,11 +26,40 @@ const listingSchema = new Schema({
         ref: "User"
     },
     avgRating: {
-        type: Number
+        type: Number,
+        default: 0
     },
     price: Number,
     location: String,
-    country: String
+    country: String,
+    geometry: {
+        type: {
+            type: String, 
+            enum: ['Point'], 
+            required: true,
+            default: 'Point'
+        },
+        coordinates: {
+            type: [Number], // [Longitude, Latitude]
+            required: true
+        }
+    },
+    category: {
+        type: String,
+        enum: [
+            "trending",
+            "rooms",
+            "iconic-cities",
+            "mountains",
+            "amazing-pools",
+            "camping",
+            "farms",
+            "arctic",
+            "other"
+        ],
+        default: "other",
+        required: true
+    }
 });
 
 listingSchema.post("findOneAndDelete", async(listing) => {
