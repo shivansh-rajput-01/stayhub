@@ -1,0 +1,58 @@
+<% layout("./layouts/boilerplate") -%>
+<body>
+    <% if(!validInput.includes(infilter)){ %>
+        <p>Please Give a valid filter</p>
+    <% } %>
+    <% if(validInput.includes(infilter)){ %>
+        <h3><%= infilter %></h3>
+        <% if(filteredListings.length == 0){ %>
+            <p>There are no <%= infilter %> listings</p>
+        <% } %>
+    <% } %>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 mt-3">
+        <% let idx = 0; %>
+        <%for(let listing of filteredListings){%>
+            <div class="col">
+                <a href="/listings/<%= listing._id %>" class="text-decoration-none">
+                    <div class="card listing-card" style="width: 25rem;">
+                        <img src="<%= listing.image.url %>" class="card-img-top" alt="property photo">
+                        <div class="card-img-overlay"></div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <%= listing.title %>
+                                <p class="card-text d-lg-inline">
+                                    <% if(listing.avgRating){ %>
+                                        <% let arr = starRatingArray(listing.avgRating) %>
+                                            <% for(let i=0; i<5; i++){ %>
+                                                <svg width="20px" height="20px">
+                                                    <defs>
+                                                        <linearGradient id=<%= `starfill-${i}-${idx}` %> x1="0%" y1="0%" x2="100%" y2="0%">
+                                                            <stop offset=<%= arr[i] %> stop-color="#FFD700"/>
+                                                                <stop offset=<%= arr[i] %> stop-color="grey"/>
+                                                        </linearGradient>
+                                                    </defs>
+                                                    <path
+                                                    d="M 10 0 L 8 8 L 0 8 L 6 12 L 4 20 L 10 16 L 16 20 L 14 12 L 20 8 L 12 8 Z"
+                                                    fill="url(#<%= `starfill-${i}-${idx}` %>)"
+                                                    />
+                                                </svg>
+                                                <% if(i==4){ %>
+                                                    (<%= listing.reviews.length %>)
+                                                <% } %>
+                                            <% } %>
+                                    <% } %>
+                                </p>
+                                <% if(!listing.avgRating || listing.avgRating==0){ %>
+                                    No reviews added yet
+                                <% } %>
+                                <p class="price">₹<%= listing.price.toLocaleString("en-IN") %></p>
+                                <p class="tax-price hide">₹<%= (listing.price * 1.18).toLocaleString("en-IN") %></p>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <% idx++; %>
+        <%}%>
+    </div>
+</body>

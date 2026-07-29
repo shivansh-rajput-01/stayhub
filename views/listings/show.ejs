@@ -1,8 +1,11 @@
 <% layout("./layouts/boilerplate") -%>
+<script>
+    const l = <%- JSON.stringify(listing) %>;
+</script>
 <body>
     <div class="container">
-        <div class="card border-0 show-card offset-lg-4" style="width: 32rem;">
-            <img src="<%= listing.image.url %>" class="card-img-top" alt="property photo">
+        <div class="card border-0 show-card offset-lg-3" style="width: 42rem;">
+            <img src="<%= listing.image.url %>" class="card-img-top show-card-img" alt="property photo">
             <div class="card-body">
                 <p class="card-text">Owned By - <%= listing.owner.username %></p>
                 <% if(averageRating(listing.reviews)){ %>
@@ -41,7 +44,7 @@
                 <hr>
             </div>
         </div>
-        <div class="offset-lg-4 reviews" style="width: 32rem;">
+        <div class="offset-lg-3 reviews" style="width: 42rem;">
             <% if(currUser){ %>
                 <h4>Give Review</h4>
                 <% if(checkReviewed(listing.reviews, userId)){ %>
@@ -80,7 +83,7 @@
                 <hr>
             <% } %>
         </div>
-        <div class="offset-lg-4 reviews" style="width: 32rem;">
+        <div class="offset-lg-3 reviews" style="width: 42rem;">
             <h4>Reviews</h4>
             <% if(listing.reviews.length == 0) { %>
                 <p>No reviews added yet</p>
@@ -104,5 +107,10 @@
                 <% } %>
             </div>
         </div>
+        <div class="offset-lg-3 reviews">
+            <h3>Where You will Be</h3>
+        </div>
+        <div id="map" class="offset-lg-3 reviews" style="width: 42rem;"></div>
     </div>
+    <script src="/js/map.js"></script>
 </body>

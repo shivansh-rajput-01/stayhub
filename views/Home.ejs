@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/rating.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+</head>
+<body>
+    <%- include("./includes/navbar.ejs") %>
+    <div class="hero-section">
+        <div class="image">
+            <p class="big">Your Adventure Starts Here.</p>
+            <p class="white">Discover unique stays, homes and experiences around the world.</p>
+            <div class="section">
+                <div class="text-box">
+                    <span>Location</span>
+                    <span class="light">e.g. Delhi, India</span>
+                </div>
+                <div class="text-box">
+                    <span>Add Listing</span>
+                    <span class="light">Add houses, places and more</span>
+                </div>
+                <div class="text-box">
+                    <span>Give Review</span>
+                    <span class="light">Add ratings</span>
+                </div>
+                <div class="text-box">
+                    <span>Search Listing</span>
+                    <span class="light">Search For your need</span>
+                </div>
+                <div class="se-box">
+                    <button class="btn btn-explore">Explore <i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="hidden">
+            <div>
+                <p class="big">Your Adventure Starts Here.</p>
+                <p class="white">Discover unique stays, homes and experiences around the world.</p>
+                <button class="btn btn-explore">Explore <i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h3 class="tea">Explore Listings</h3>
+        <div class="filter-box mt-3">
+            <div id="filters">
+                <div class="filter">
+                    <div><i class="fa-solid fa-fire"></i></div>
+                    <p>Trending</p>
+                </div>
+                <div class="filter">
+                    <div><i class="fa-solid fa-bed"></i></div>
+                    <p>Rooms</p>
+                </div>
+                <div class="filter">
+                    <div><i class="fa-solid fa-mountain-city"></i></div>
+                    <p>Iconic Cities</p>
+                </div>
+                <div class="filter">
+                    <div><i class="fa-solid fa-mountain"></i></div>
+                    <p>Mountains</p>
+                </div>
+                <div class="filter">
+                    <div><i class="fa-solid fa-person-swimming"></i></div>
+                    <p>Amazing Pools</p>
+                </div>
+                <div class="filter">
+                    <div><i class="fa-solid fa-campground"></i></div>
+                    <p>Camping</p>
+                </div>
+                <div class="filter">
+                    <div><i class="fa-solid fa-cow"></i></div>
+                    <p>Farms</p>
+                </div>
+                <div class="filter">
+                    <div><i class="fa-regular fa-snowflake"></i></div>
+                    <p>Arctic</p>
+                </div>
+            </div>
+            <div class="hide" id="filter-input">
+                <form action="/listings/filters" class="d-flex">
+                    <select class="form-select" name="infilter" id="filter-dropdown" required>
+                        <option value="" disabled selected>Filters</option>
+                        <option value="trending">Trending</option>
+                        <option value="rooms">Rooms</option>
+                        <option value="iconic-cities">Iconic Cities</option>
+                        <option value="mountains">Mountains</option>
+                        <option value="amazing-pools">Amazing Pools</option>
+                        <option value="camping">Camping</option>
+                        <option value="farms">Farms</option>
+                        <option value="arctic">Arctic</option>
+                    </select>
+                    <button class="filter-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="featured-listings">
+            <h3 class="tea">Featured Listings</h3>
+            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 mt-3">
+            <% let idx = 0; %>
+            <%for(let listing of listings){%>
+                <div class="col">
+                    <a href="/listings/<%= listing._id %>" class="text-decoration-none">
+                        <div class="card listing-card" style="width: 25rem;">
+                            <img src="<%= listing.image.url %>" class="card-img-top" alt="property photo">
+                            <div class="card-img-overlay"></div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <%= listing.title %>
+                                    <p class="card-text d-lg-inline">
+                                        <% if(listing.avgRating){ %>
+                                            <% let arr = starRatingArray(listing.avgRating) %>
+                                                <% for(let i=0; i<5; i++){ %>
+                                                    <svg width="20px" height="20px">
+                                                        <defs>
+                                                            <linearGradient id=<%= `starfill-${i}-${idx}` %> x1="0%" y1="0%" x2="100%" y2="0%">
+                                                                <stop offset=<%= arr[i] %> stop-color="#FFD700"/>
+                                                                    <stop offset=<%= arr[i] %> stop-color="grey"/>
+                                                            </linearGradient>
+                                                        </defs>
+                                                        <path
+                                                        d="M 10 0 L 8 8 L 0 8 L 6 12 L 4 20 L 10 16 L 16 20 L 14 12 L 20 8 L 12 8 Z"
+                                                        fill="url(#<%= `starfill-${i}-${idx}` %>)"
+                                                        />
+                                                    </svg>
+                                                    <% if(i==4){ %>
+                                                        (<%= listing.reviews.length %>)
+                                                    <% } %>
+                                                <% } %>
+                                        <% } %>
+                                    </p>
+                                    <% if(!listing.avgRating || listing.avgRating==0){ %>
+                                        No reviews added yet
+                                    <% } %>
+                                    <p class="price">₹<%= listing.price.toLocaleString("en-IN") %></p>
+                                    <p class="tax-price hide">₹<%= (listing.price * 1.18).toLocaleString("en-IN") %></p>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <% idx++; %>
+            <%}%>
+    </div>
+        </div>
+        <h3 class="tea">Why Choose Us</h3>
+        <div class="benefits">
+            <div class="benefit">
+                <p class="medium">Verified Properties</p>
+                <p>100% verified homes and spaces.</p>
+            </div>
+            <div class="benefit">
+                <p class="medium">Best Price Guarantee</p>
+                <p>Affordable luxury stays without hidden charges.</p>
+            </div>
+            <div class="benefit">
+                <p class="medium">24/7 Support</p>
+                <p>Dedicated assistance anytime during your journey.</p>
+            </div>
+        </div>
+    </div>
+    <%- include("./includes/footer.ejs") %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
+    <script>
+        let btns = document.querySelectorAll(".btn-explore");
+        for(let btn of btns){
+            btn.addEventListener("click", () => {
+                window.location.href = "/listings";
+            });
+        }
+    </script>
+    <script src="/js/filter.js"></script>
+</body>
+</html>
