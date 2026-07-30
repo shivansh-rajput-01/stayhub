@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "22.14.0"
+  },
   "name": "stayhub",
   "version": "1.0.0",
   "main": "index.js",
@@ -21,6 +24,7 @@
     "axios": "^1.18.1",
     "cloudinary": "^2.10.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "dotenv": "^17.4.0",
     "ejs": "^5.0.1",
     "ejs-mate": "^4.0.0",
@@ -28,6 +32,7 @@
     "express-session": "^1.19.0",
     "joi": "^18.2.3",
     "method-override": "^3.0.0",
+    "mongodb": "^7.5.0",
     "mongoose": "^9.3.3",
     "multer": "^2.2.0",
     "multer-storage-cloudinary": "^4.0.0",

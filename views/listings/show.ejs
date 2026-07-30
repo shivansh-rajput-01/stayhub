@@ -30,7 +30,7 @@
                 <% } %>
                 <h5 class="card-title"><%= listing.title %></h5>
                 <p class="card-text"><%= listing.description %></p>
-                <p class="card-text">Price: ₹ <%= listing.price.toLocaleString("en-IN") %></p>
+                <p class="card-text">Price: ₹ <%= listing.price.toLocaleString("en-IN") %> /night</p>
                 <p class="card-text">Location: <%= listing.location %></p>
                 <p class="card-text">Country: <%= listing.country %></p>
                 <% if(currUser && listing.owner._id.equals(currUser._id)) { %>

@@ -4,6 +4,7 @@ const { averageRating } = require("../utils/averageRating.js");
 const { starRatingArray } = require("../utils/starRatingArray.js");
 const {cloudinary} = require("../cloudConfig.js");
 const axios = require('axios');
+const { pushUnique } = require("../utils/pushUnique.js");
 
 async function geoCode(location, country){
     let uri = encodeURIComponent(`${location},${country}`);
@@ -206,16 +207,16 @@ module.exports.searchListing = async (req, res) => {
     let c = await Listing.find({country: {$regex : word, $options: "i"}});
     let categ = await Listing.find({category: {$regex : word, $options: "i"}});
     if(t.length){
-        title.push(...t);
+        title = pushUnique(t, title);
     }
     if(l.length){
-        location.push(...l);
+        location = pushUnique(l, location)
     }
     if(c.length){
-        country.push(...c);
+        country = pushUnique(c, country);
     }
     if(categ.length){
-        category.push(...categ);
+        category = pushUnique(categ, category);
     }
   }
   res.render("listings/search.ejs", {title, location, country, category, starRatingArray, searchedlisting});
