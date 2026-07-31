@@ -2,7 +2,7 @@
   "engines": {
     "node": "22.14.0"
   },
-  "name": "stayhub",
+  "name": "stayhub-rental-app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
