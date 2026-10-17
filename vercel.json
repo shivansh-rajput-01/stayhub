@@ -23,5 +23,6 @@
         "utils/**"
       ]
     }
-  }
+  },
+  "installCommand": "npm install --legacy-peer-deps"
 }
