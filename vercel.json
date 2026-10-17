@@ -8,14 +8,7 @@
   ],
   "functions": {
     "app.js": {
-      "includeFiles": [
-        "views/**",
-        "public/**",
-        "models/**",
-        "controllers/**",
-        "routes/**",
-        "utils/**"
-      ]
+      "includeFiles": "{views,public,models,controllers,routes,utils}/**"
     }
   },
   "installCommand": "npm install --legacy-peer-deps"
