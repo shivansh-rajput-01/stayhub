@@ -35,9 +35,6 @@ app.engine("ejs", ejsMate);
 
 const dbUrl = process.env.MONGO_URL;
 async function main() {
-    if (mongoose.connection.readyState >= 1) {
-        return;
-    }
     await mongoose.connect(dbUrl);
 }
 
@@ -108,10 +105,6 @@ app.use((err, req, res, next) => {
     res.status(status).render("Error.ejs", { message });
 });
 
-if (process.env.NODE_ENV !== 'production' || process.env.RENDER) {
-    app.listen(port, () => {
-        console.log(`app listening to port ${port}`);
-    });
-}
-
-module.exports = app;
+app.listen(port, () => {
+    console.log(`app listening to port ${port}`);
+});
