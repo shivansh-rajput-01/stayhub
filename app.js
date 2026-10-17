@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV != "production"){
+if (process.env.NODE_ENV != "production") {
     require('dotenv').config();
 }
 
@@ -12,7 +12,7 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const wrapAsync = require('./utils/WrapAsync.js');
 const session = require("express-session");
-const {MongoStore} = require('connect-mongo');
+const { MongoStore } = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -27,7 +27,7 @@ const { starRatingArray } = require('./utils/starRatingArray.js');
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -35,12 +35,15 @@ app.engine("ejs", ejsMate);
 
 const dbUrl = process.env.MONGO_URL;
 async function main() {
-  await mongoose.connect(dbUrl);
+    if (mongoose.connection.readyState >= 1) {
+        return;
+    }
+    await mongoose.connect(dbUrl);
 }
 
 main()
-  .then((res) => console.log(`connected to database ${res}`))
-  .catch((err) => console.log(err));
+    .then((res) => console.log(`connected to database ${res}`))
+    .catch((err) => console.log(err));
 
 
 const port = process.env.PORT || 3000;
@@ -87,9 +90,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get("/", wrapAsync(async(req, res) => {
-    const listings = await Listing.find().sort({avgRating: -1}).limit(5);
-    res.render("Home.ejs", {listings, starRatingArray});
+app.get("/", wrapAsync(async (req, res) => {
+    const listings = await Listing.find().sort({ avgRating: -1 }).limit(5);
+    res.render("Home.ejs", { listings, starRatingArray });
 }));
 
 app.use("/", usersRouter);
@@ -101,8 +104,8 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    let {status = 500, message = "something went wrong"} = err;
-    res.status(status).render("Error.ejs", {message});
+    let { status = 500, message = "something went wrong" } = err;
+    res.status(status).render("Error.ejs", { message });
 });
 
 if (process.env.NODE_ENV !== 'production' || process.env.RENDER) {
