@@ -43,7 +43,7 @@ main()
   .catch((err) => console.log(err));
 
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
@@ -105,6 +105,10 @@ app.use((err, req, res, next) => {
     res.status(status).render("Error.ejs", {message});
 });
 
-app.listen(port, () => {
-    console.log(`app listening to port ${port}`)
-});
+if (process.env.NODE_ENV !== 'production' || process.env.RENDER) {
+    app.listen(port, () => {
+        console.log(`app listening to port ${port}`);
+    });
+}
+
+module.exports = app;
